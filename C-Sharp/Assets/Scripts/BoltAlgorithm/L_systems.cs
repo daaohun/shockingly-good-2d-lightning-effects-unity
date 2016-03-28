@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class LightningBoltV2 : MonoBehaviour {
+public class L_systems : MonoBehaviour
+{
 
     public PoolMgr lingPoorMgr;
 
@@ -82,22 +83,17 @@ public class LightningBoltV2 : MonoBehaviour {
         segmentList.Enqueue(new Segment(startPoint, endPoint));
         float offsetAmount = maximumOffset;
 
-        slope = segmentList.Peek().endPoint - segmentList.Peek().startpoint;
-        float distance = slope.magnitude;
+        //slope = segmentList.Peek().endPoint - segmentList.Peek().startpoint;
+        //float distance = slope.magnitude;
 
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 40; i++)
         {
             Segment current = segmentList.Dequeue();
 
-            slope = current.endPoint - current.startpoint;
             midPoint = (current.startpoint + current.endPoint) / 2.0f;
-
-            
-            normal = (new Vector2(slope.y, -slope.x)).normalized;
-            //offset = (Random.Range(0, 2) == 0 ? -offsetAmount : offsetAmount);
-            offset = (Random.Range(0, 2) == 0 ? -offsetAmount : offsetAmount);
-            //flip = !flip; 
-            midPoint += normal * offset;
+            slope = (current.endPoint - current.startpoint).normalized;
+            slope = UnityEngine.Random.Range(0, 2) == 0 ? new Vector2(-slope.y, slope.x) : new Vector2(slope.y, -slope.x);
+            midPoint += slope * UnityEngine.Random.Range(-offsetAmount, offsetAmount);
 
             segmentList.Enqueue(new Segment(current.startpoint, midPoint));
             segmentList.Enqueue(new Segment(midPoint, current.endPoint));
@@ -106,12 +102,12 @@ public class LightningBoltV2 : MonoBehaviour {
             //splitEnd = Rotate(direction, randomSmallAngle) * lengthScale + midPoint; // lengthScale is, for best results, < 1.  0.7 is a good value.
             //segmentList.Add(new Segment(midPoint, splitEnd));
 
-            slope = midPoint - current.startpoint;
-            slope = Quaternion.Euler(Vector3.forward * Random.Range(5.0f, 10.0f)) * slope;
-            slope *= 0.7f;
-            splitEnd = midPoint + slope;
-            //lengthScale; // lengthScale is, for best results, < 1.  0.7 is a good value.
-            segmentList.Enqueue(new Segment(midPoint, splitEnd));
+            //slope = midPoint - current.startpoint;
+            //slope = Quaternion.Euler(Vector3.forward * Random.Range(5.0f, 10.0f)) * slope;
+            //slope *= 0.7f;
+            //splitEnd = midPoint + slope;
+            ////lengthScale; // lengthScale is, for best results, < 1.  0.7 is a good value.
+            //segmentList.Enqueue(new Segment(midPoint, splitEnd));
 
             offsetAmount /= 2.0f;
         }
@@ -153,6 +149,6 @@ public class LightningBoltV2 : MonoBehaviour {
 
     public void UpdateBolt()
     {
-        //Alpha -= FadeOutRate;
+        Alpha -= FadeOutRate;
     }
 }

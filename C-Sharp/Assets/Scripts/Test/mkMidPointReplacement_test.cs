@@ -2,8 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class mTestV2 : MonoBehaviour {
-
+public class mkMidPointReplacement_test : MonoBehaviour
+{
 
     //Prefabs to be assigned in Editor
     public GameObject BoltPrefab;
@@ -11,7 +11,7 @@ public class mTestV2 : MonoBehaviour {
     //For pooling
     List<GameObject> activeBoltsObj;
     List<GameObject> inactiveBoltsObj;
-    int maxBolts = 2;
+    int maxBolts = 10;
 
     //For handling mouse clicks
     int clicks = 0;
@@ -36,7 +36,7 @@ public class mTestV2 : MonoBehaviour {
             bolt.transform.parent = p.transform;
 
             //Initialize our lightning with a preset number of max sexments
-            bolt.GetComponent<LightningBoltV2>().Initialize(20);
+            bolt.GetComponent<mkMidPointReplacement>().Initialize(5);
 
             //Set inactive to start
             bolt.SetActive(false);
@@ -50,7 +50,7 @@ public class mTestV2 : MonoBehaviour {
     {
         //Declare variables for use later
         GameObject boltObj;
-        LightningBoltV2 boltComponent;
+        mkMidPointReplacement boltComponent;
 
         //store off the count for effeciency
         int activeLineCount = activeBoltsObj.Count;
@@ -62,7 +62,7 @@ public class mTestV2 : MonoBehaviour {
             boltObj = activeBoltsObj[i];
 
             //get the LightningBolt component
-            boltComponent = boltObj.GetComponent<LightningBoltV2>();
+            boltComponent = boltObj.GetComponent<mkMidPointReplacement>();
 
             //if the bolt has faded out
             if (boltComponent.IsComplete)
@@ -95,8 +95,9 @@ public class mTestV2 : MonoBehaviour {
                 Vector3 temp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 pos2 = new Vector2(temp.x, temp.y);
 
+  
                 //create a (pooled) bolt from pos1 to pos2
-                CreatePooledBolt(pos1, pos2, Color.white, 1f);
+                CreatePooledBolt(pos1, pos2, 3.0f);
             }
 
             //increment our tick count
@@ -109,12 +110,12 @@ public class mTestV2 : MonoBehaviour {
         //update and draw active bolts
         for (int i = 0; i < activeBoltsObj.Count; i++)
         {
-            activeBoltsObj[i].GetComponent<LightningBoltV2>().UpdateBolt();
-            activeBoltsObj[i].GetComponent<LightningBoltV2>().Draw();
+            //activeBoltsObj[i].GetComponent<mkMidPointReplacement>().UpdateBolt();
+            activeBoltsObj[i].GetComponent<mkMidPointReplacement>().Draw();
         }
     }
 
-    void CreatePooledBolt(Vector2 source, Vector2 dest, Color color, float thickness)
+    void CreatePooledBolt(Vector2 source, Vector2 dest, float displace)
     {
         //if there is an inactive bolt to pull from the pool
         if (inactiveBoltsObj.Count > 0)
@@ -130,10 +131,11 @@ public class mTestV2 : MonoBehaviour {
             inactiveBoltsObj.RemoveAt(inactiveBoltsObj.Count - 1);
 
             //get the bolt component
-            LightningBoltV2 boltComponent = boltObj.GetComponent<LightningBoltV2>();
+            mkMidPointReplacement boltComponent = boltObj.GetComponent<mkMidPointReplacement>();
 
+            boltComponent.Init();
             //activate the bolt using the given position data
-            boltComponent.ActivateBolt(source, dest, color);
+            boltComponent.drawLighting(source, dest, displace);
         }
     }
 }

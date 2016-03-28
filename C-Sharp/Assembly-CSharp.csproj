@@ -46,17 +46,19 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\BoltAlgorithm\L_systems.cs" />
+     <Compile Include="Assets\Scripts\BoltAlgorithm\mkMidPointReplacement.cs" />
      <Compile Include="Assets\Scripts\C#\BranchLightning.cs" />
      <Compile Include="Assets\Scripts\C#\DemoScript.cs" />
      <Compile Include="Assets\Scripts\C#\LightningBolt.cs" />
-     <Compile Include="Assets\Scripts\C#\LightningBoltV2.cs" />
      <Compile Include="Assets\Scripts\C#\Line.cs" />
      <Compile Include="Assets\Scripts\CoreFrameWork\Callback.cs" />
      <Compile Include="Assets\Scripts\CoreFrameWork\Messenger.cs" />
      <Compile Include="Assets\Scripts\CoreFrameWork\PoolMgr.cs" />
+     <Compile Include="Assets\Scripts\Test\L_systems_test.cs" />
+     <Compile Include="Assets\Scripts\Test\mkMidPointReplacement_test.cs" />
      <Compile Include="Assets\mTest.cs" />
      <Compile Include="Assets\mTest2.cs" />
-     <Compile Include="Assets\mTestV2.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.9/Standalone/UnityEngine.UI.dll</HintPath>
  </Reference>

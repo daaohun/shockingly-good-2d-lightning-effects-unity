@@ -15,3 +15,8 @@ Source files for the Tuts+ tutorials: [How to Create Shockingly Good 2D Lightnin
 
 	http://www.manew.com/thread-39061-1-1.html
 
+
+http://stackoverflow.com/questions/3578981/how-does-one-make-a-point-to-point-bolt-of-lightning-using-perlin-noise-or-oth
+
+
+https://www.assetstore.unity3d.com/en/#!/content/34217
